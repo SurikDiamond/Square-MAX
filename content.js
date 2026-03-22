@@ -289,8 +289,4 @@ function startObserver() {
 
   watchCalendarEvents();
 
-})(); 
-
-if (import.meta && import.meta.hot) {
-  import.meta.hot.accept();
-}
+})();
