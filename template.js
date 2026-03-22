@@ -1,5 +1,5 @@
 async function loadTemplates() {
-  const url = "https://docs.google.com/spreadsheets/d/1tCPUDYOrlKpdnlahi03qscUQBvooBHPwYVUnxZVad2c/export?format=csv&gid=0";
+  const url = "https://docs.google.com/spreadsheets/d/1_-z5Xc3jJOwHqtb0IbJqTBDCKf8BjRKoqWhXm5TEpdI/export?format=csv&gid=0";
 
   const res = await fetch(url);
   const csv = await res.text();
