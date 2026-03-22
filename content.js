@@ -249,7 +249,8 @@ function startObserver() {
       photo: true,
       license: true,
       balance: true,
-      chrome: true
+      chrome: true,
+      bouquete: true
     }); 
 
     const data = await fetch(`https://app.squareup.com/appointments/merchant/api/reservations/${id}`, {
@@ -277,6 +278,11 @@ function startObserver() {
     }
     if(text.toLowerCase().includes("chrome runner") && settings.chrome){
       titleEl.textContent = "💿 " + titleEl.textContent
+    }
+    if(text.toLowerCase().includes("bouquet") && !text.toLowerCase().includes("own bouquet") && !text.toLowerCase().includes("no bouquet") && settings.bouquete){
+      titleEl.textContent = "💐 " + titleEl.textContent
+    } else if(text.toLowerCase().includes("gentlemen") || text.toLowerCase().includes("gentleman") && settings.bouquete){
+      titleEl.textContent = "💐 " + titleEl.textContent
     }
 
     if(settings.balance){

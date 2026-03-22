@@ -5,7 +5,8 @@ const defaultSettings = {
   photo: true,
   license: true,
   balance: true,
-  chrome: true
+  chrome: true,
+  bouquet: true
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
