@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  width: 280px;
+  height: auto;
+  background: #1f1f1f;
+  color: white;
+}
+
+.wrapper {
+  padding: 14px;
+}
+
+h1 {
+  font-size: 18px;
+  margin: 0 0 12px;
+}
+
+.setting {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+}
+
+.left {
+  font-size: 14px;
+}

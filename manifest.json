@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Square MAX",
+  "version": "1.0",
+  "description": "Pushing Square to the limits",
+  "permissions": ["scripting", "storage"],
+  "host_permissions": [
+    "https://app.squareup.com/*",
+    "https://docs.google.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.squareup.com/dashboard/appointments/*"],
+      "js": ["content.js", "template.js"], 
+      "css": ["style.css"],
+      "run_at": "document_idle"
+    }
+  ]
+}
