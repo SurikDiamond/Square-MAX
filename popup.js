@@ -6,7 +6,9 @@ const defaultSettings = {
   license: true,
   balance: true,
   chrome: true,
-  bouquet: true
+  bouquet: true,
+  cake: true,
+  donut: true
 };
 
 document.addEventListener("DOMContentLoaded", async () => {

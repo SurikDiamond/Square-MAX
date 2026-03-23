@@ -250,14 +250,16 @@ function startObserver() {
       license: true,
       balance: true,
       chrome: true,
-      bouquete: true
+      bouquet: true,
+      cake: true,
+      donut: true
     }); 
 
     const data = await fetch(`https://app.squareup.com/appointments/merchant/api/reservations/${id}`, {
       credentials: "include"
     }).then(r => r.json());
 
-    const text = data?.seller_note || ""
+    const text = String(data?.seller_note || "").split("===")[0];
 
     console.log(text);
 
@@ -281,13 +283,19 @@ function startObserver() {
     }
 
     const bouquets = ["vogue", "brenda", "santa maria", "isabella", "gigi", "sicily", "valentina", "cloe", "alexandra", "gentlemen", "gentleman", "erica"]
-
     const found = bouquets.some(word =>
       text.toLowerCase().includes(word.toLowerCase())
     );
-
-    if(found && !text.toLowerCase().includes("own bouquet") && !text.toLowerCase().includes("no bouquet") && settings.bouquete){
+    if(found && !text.toLowerCase().includes("own bouquet") && !text.toLowerCase().includes("no bouquet") && settings.bouquet){
       titleEl.textContent = "💐 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("cake") && !text.toLowerCase().includes("own cake") && !text.toLowerCase().includes("no cake") && settings.cake){
+      titleEl.textContent = "🎂 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("donut") && !text.toLowerCase().includes("no donut") && settings.donut){
+      titleEl.textContent = "🍩 " + titleEl.textContent
     }
 
     if(settings.balance){
