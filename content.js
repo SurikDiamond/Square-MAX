@@ -279,9 +279,14 @@ function startObserver() {
     if(text.toLowerCase().includes("chrome runner") && settings.chrome){
       titleEl.textContent = "💿 " + titleEl.textContent
     }
-    if(text.toLowerCase().includes("bouquet") && !text.toLowerCase().includes("own bouquet") && !text.toLowerCase().includes("no bouquet") && settings.bouquete){
-      titleEl.textContent = "💐 " + titleEl.textContent
-    } else if(text.toLowerCase().includes("gentlemen") || text.toLowerCase().includes("gentleman") && settings.bouquete){
+
+    const bouquets = ["vogue", "brenda", "santa maria", "isabella", "gigi", "sicily", "valentina", "cloe", "alexandra", "gentlemen", "gentleman", "erica"]
+
+    const found = bouquets.some(word =>
+      text.toLowerCase().includes(word.toLowerCase())
+    );
+
+    if(found && !text.toLowerCase().includes("own bouquet") && !text.toLowerCase().includes("no bouquet") && settings.bouquete){
       titleEl.textContent = "💐 " + titleEl.textContent
     }
 
