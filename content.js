@@ -272,7 +272,7 @@ function startObserver() {
     if((text.toLowerCase().includes("broadcast")) && settings.broadcast){
       titleEl.textContent = "🔴 " + titleEl.textContent
     }
-    if(text.toLowerCase().includes("photo") && settings.photo){
+    if(text.toLowerCase().includes("photo") && !text.toLowerCase().includes("own photo")  && !text.toLowerCase().includes("photo pass") && !text.toLowerCase().includes("photo pass") && settings.photo){
       titleEl.textContent = "📸 " + titleEl.textContent
     }
     if(text.toLowerCase().includes("lnc") && !text.toLowerCase().includes("own lnc") && settings.license){
