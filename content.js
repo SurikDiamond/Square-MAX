@@ -252,7 +252,9 @@ function startObserver() {
       chrome: true,
       bouquet: true,
       cake: true,
-      donut: true
+      donut: true,
+      lovestation: true,
+      tower: true
     }); 
 
     const data = await fetch(`https://app.squareup.com/appointments/merchant/api/reservations/${id}`, {
@@ -296,6 +298,14 @@ function startObserver() {
 
     if(text.toLowerCase().includes("donut") && !text.toLowerCase().includes("no donut") && settings.donut){
       titleEl.textContent = "🍩 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("love station") && settings.lovestation){
+      titleEl.textContent = "🍔🍹🧁🧀 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("tower") && settings.tower){
+      titleEl.textContent = "🧀🍇🧁 " + titleEl.textContent
     }
 
     if(settings.balance){

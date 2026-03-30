@@ -8,7 +8,9 @@ const defaultSettings = {
   chrome: true,
   bouquet: true,
   cake: true,
-  donut: true
+  donut: true,
+  lovestation: true,
+  tower: true
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
