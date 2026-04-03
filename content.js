@@ -254,7 +254,9 @@ function startObserver() {
       cake: true,
       donut: true,
       lovestation: true,
-      tower: true
+      tower: true,
+      album: true,
+      print: true
     }); 
 
     const data = await fetch(`https://app.squareup.com/appointments/merchant/api/reservations/${id}`, {
@@ -277,6 +279,12 @@ function startObserver() {
     if(text.toLowerCase().includes("photo") && !text.toLowerCase().includes("own photo")  && !text.toLowerCase().includes("photo pass") && !text.toLowerCase().includes("photo pass") && settings.photo){
       titleEl.textContent = "📸 " + titleEl.textContent
     }
+    if(text.toLowerCase().includes("album") && !text.toLowerCase().includes("no album") && settings.album){
+      titleEl.textContent = "📕 " + titleEl.textContent
+    }
+    if(text.toLowerCase().includes("print") && !text.toLowerCase().includes("no print") && settings.print){
+      titleEl.textContent = "🖼 " + titleEl.textContent
+    }
     if(text.toLowerCase().includes("lnc") && !text.toLowerCase().includes("own lnc") && settings.license){
       titleEl.textContent = "✍️ " + titleEl.textContent
     }
@@ -284,7 +292,7 @@ function startObserver() {
       titleEl.textContent = "💿 " + titleEl.textContent
     }
 
-    const bouquets = ["vogue", "brenda", "santa maria", "isabella", "gigi", "sicily", "valentina", "cloe", "alexandra", "gentlemen", "gentleman", "erica"]
+    const bouquets = ["vogue", "brenda", "santa maria", "isabella", "gigi", "sicily", "valentina", "cloe", "alexandra", "gentlemen", "gentleman", "erica", "victoria"]
     const found = bouquets.some(word =>
       text.toLowerCase().includes(word.toLowerCase())
     );
@@ -309,10 +317,17 @@ function startObserver() {
     }
 
     if(settings.balance){
-      const match = text.match(/Balance:\s*\$([\d,]+(?:\.\d{2})?)/);
+      const match = text.match(/Balance:\s*\$([\d,]+(?=\.\d{2})?)/);
 
-      const amount = match ? match[1] : null;
+      const amount = match ? match[match.length-1] : null;
       if(match.length > 0 && amount != 0) titleEl.textContent = "💰 " + titleEl.textContent
+
+      if(match.length == 0){
+        match = text.match(/Balance:\s*\$([\d,]+(?:\.\d{2})?)/);
+
+        const amount = match ? match[match.length-1] : null;
+      if(match.length > 0 && amount != 0) titleEl.textContent = "💰 " + titleEl.textContent
+      }
     }
   }
 

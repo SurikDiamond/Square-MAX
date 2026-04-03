@@ -10,7 +10,9 @@ const defaultSettings = {
   cake: true,
   donut: true,
   lovestation: true,
-  tower: true
+  tower: true,
+  album: true,
+  print: true
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
