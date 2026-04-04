@@ -244,6 +244,7 @@ function startObserver() {
   async function addEmojis(id, titleEl) {
     const settings = await chrome.storage.sync.get({
       spanish: true,
+      english: true,
       video: true,
       broadcast: true,
       photo: true,
@@ -253,6 +254,13 @@ function startObserver() {
       bouquet: true,
       cake: true,
       donut: true,
+      carousel: true,
+      pasta: true,
+      seating_chart: true,
+      extra_hour: true,
+      alcohol: true,
+      brunch: true,
+      brisket: true,
       lovestation: true,
       tower: true,
       album: true,
@@ -269,6 +277,9 @@ function startObserver() {
 
     if(text.toLowerCase().includes("spanish") && settings.spanish){
       titleEl.textContent = "🇪🇸 " + titleEl.textContent
+    }
+    if(text.toLowerCase().includes("english") && settings.english){
+      titleEl.textContent = "🇺🇸 " + titleEl.textContent
     }
     if((text.toLowerCase().includes("video")) && settings.video){
       titleEl.textContent = "🎬 " + titleEl.textContent
@@ -300,12 +311,40 @@ function startObserver() {
       titleEl.textContent = "💐 " + titleEl.textContent
     }
 
-    if(text.toLowerCase().includes("cake") && !text.toLowerCase().includes("own cake") && !text.toLowerCase().includes("no cake") && settings.cake){
+    if(text.toLowerCase().includes("cake") && settings.cake){
       titleEl.textContent = "🎂 " + titleEl.textContent
     }
 
     if(text.toLowerCase().includes("donut") && !text.toLowerCase().includes("no donut") && settings.donut){
       titleEl.textContent = "🍩 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("carousel") && settings.carousel){
+      titleEl.textContent = "🎠 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("pasta") && settings.pasta){
+      titleEl.textContent = "🍝 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("seating chart") && !text.toLowerCase().includes("seating chart - no") && settings.seating_chart){
+      titleEl.textContent = "🪑 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("extra hour") && settings.extra_hour){
+      titleEl.textContent = "🕐 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("❌ host insurance") && !text.toLowerCase().includes("✅ host insurance") && settings.alcohol){
+      titleEl.textContent = "🍾 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("brunch") && settings.brunch){
+      titleEl.textContent = "🍳 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("brisket") && settings.brisket){
+      titleEl.textContent = "🥩 " + titleEl.textContent
     }
 
     if(text.toLowerCase().includes("love station") && settings.lovestation){
@@ -317,16 +356,18 @@ function startObserver() {
     }
 
     if(settings.balance){
-      const match = text.match(/Balance:\s*\$([\d,]+(?=\.\d{2})?)/);
+      const match = text.match(/Balance:\s*\$([\d,]+(?:\.\d{2})?)/);
 
-      const amount = match ? match[match.length-1] : null;
-      if(match.length > 0 && amount != 0) titleEl.textContent = "💰 " + titleEl.textContent
+      if(match == null){
+        const match2 = text.match(/Balance =\s*\$([\d,]+(?:\.\d{2})?)/);
 
-      if(match.length == 0){
-        match = text.match(/Balance:\s*\$([\d,]+(?:\.\d{2})?)/);
-
+        if(match2 != null){
+          const amount2 = match2 ? match2[match2.length-1] : null;
+          if(match2.length > 0 && amount2 != 0) titleEl.textContent = "💰 " + titleEl.textContent
+        }
+      }else{
         const amount = match ? match[match.length-1] : null;
-      if(match.length > 0 && amount != 0) titleEl.textContent = "💰 " + titleEl.textContent
+        if(match.length > 0 && amount != 0) titleEl.textContent = "💰 " + titleEl.textContent
       }
     }
   }
