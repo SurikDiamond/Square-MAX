@@ -278,8 +278,8 @@ function startObserver() {
     if(text.toLowerCase().includes("spanish") && settings.spanish){
       titleEl.textContent = "🇪🇸 " + titleEl.textContent
     }
-    if(text.toLowerCase().includes("english") && settings.english){
-      titleEl.textContent = "🇺🇸 " + titleEl.textContent
+    if(text.toLowerCase().includes("eng") && settings.english){
+      titleEl.textContent = "🇬🇧 " + titleEl.textContent
     }
     if((text.toLowerCase().includes("video")) && settings.video){
       titleEl.textContent = "🎬 " + titleEl.textContent
