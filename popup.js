@@ -5,6 +5,7 @@ const defaultSettings = {
   broadcast: true,
   photo: true,
   license: true,
+  own_officiant: true,
   balance: true,
   chrome: true,
   bouquet: true,

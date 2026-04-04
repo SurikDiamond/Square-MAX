@@ -249,6 +249,7 @@ function startObserver() {
       broadcast: true,
       photo: true,
       license: true,
+      own_officiant: true,
       balance: true,
       chrome: true,
       bouquet: true,
@@ -298,6 +299,9 @@ function startObserver() {
     }
     if(text.toLowerCase().includes("lnc") && !text.toLowerCase().includes("own lnc") && settings.license){
       titleEl.textContent = "✍️ " + titleEl.textContent
+    }
+    if(text.toLowerCase().includes("own officiant") && settings.own_officiant){
+      titleEl.textContent = "⛪️ " + titleEl.textContent
     }
     if(text.toLowerCase().includes("chrome runner") && settings.chrome){
       titleEl.textContent = "💿 " + titleEl.textContent
