@@ -135,6 +135,16 @@ function resizeStuff() {
     }, { once: false, maxAttempts: 60, interval: 300 });
   }
 
+  function showBookingInfo() {
+    waitForElement('ar-text-center', (el) => {
+      //console.log("textarea found:", el);
+
+      const text = el?.getAttribute("value");
+
+      //console.log("textarea resized");
+    }, { once: false, maxAttempts: 60, interval: 300 });
+  }
+
   function applyTemplateToNotes(text) {
     waitForElement('market-textarea', (el) => {
       //console.log("textarea found:", el);
@@ -360,18 +370,17 @@ function startObserver() {
     }
 
     if(settings.balance){
-      const match = text.match(/Balance:\s*\$([\d,]+(?:\.\d{2})?)/);
+      const matches = [...text.matchAll(/balance\s*[:=]?\s*\$?([\d,]+(?:\.\d{2})?)/gi)];
 
-      if(match == null){
-        const match2 = text.match(/Balance =\s*\$([\d,]+(?:\.\d{2})?)/);
+      const balances = matches.map(m => m[1]);
 
-        if(match2 != null){
-          const amount2 = match2 ? match2[match2.length-1] : null;
-          if(match2.length > 0 && amount2 != 0) titleEl.textContent = "💰 " + titleEl.textContent
-        }
-      }else{
-        const amount = match ? match[match.length-1] : null;
-        if(match.length > 0 && amount != 0) titleEl.textContent = "💰 " + titleEl.textContent
+      if(balances.length > 0){
+        const lastBalance = balances.at(-1);
+
+        console.log(balances);
+        console.log(lastBalance);
+
+        if(lastBalance > 0) titleEl.textContent = "💰 " + titleEl.textContent;
       }
     }
   }
