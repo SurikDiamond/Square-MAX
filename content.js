@@ -136,20 +136,45 @@ function resizeStuff() {
     }, { once: false, maxAttempts: 60, interval: 300 });
   }
 
-  function showBalanceProperly() {
+  async function showBalanceProperly() {
     let remainingBalanceEl;
     let totalBalanceEl;
+
+    //let reorder = false;
 
     waitForElement('[aria-label="Remaining balance"]', (el) => {
       remainingBalanceEl = el;
       waitForElement('[aria-label="Total"]', (el2) => {
-            totalBalanceEl = el2;
+        totalBalanceEl = el2;
 
-            let remainingBalance = remainingBalanceEl.querySelector('[slot="side-label"]').textContent;
-            totalBalanceEl.querySelector('[slot="side-label"]').textContent = remainingBalance;
+        let remainingBalance = remainingBalanceEl.querySelector('[slot="side-label"]').textContent;
+        totalBalanceEl.querySelector('[slot="side-label"]').textContent = remainingBalance;
 
-            remainingBalanceEl.remove();
+        remainingBalanceEl.remove();
+      }, { once: true, maxAttempts: 60, interval: 300 });
+
+      waitForElement('[aria-label="Subtotal"]', (subtotal) => {
+        waitForElement('[aria-label*="Card ending in"]', (payment) => {
+        
+          let paymentBalance = payment.querySelector('[slot="side-label"]').textContent;
+
+          subtotal.querySelector('[slot="side-label"]').textContent = "(" + paymentBalance + ")";
+
+          subtotal.querySelector('[slot="label"]').textContent = "Upfront Payment";
+
+          waitForElement('div.ar-mt-4', (payments) => {
+            const elements = Array.from(payments.querySelectorAll('market-field'));
+
+            if (elements.length >= 3) {
+              const target = elements.at(-3);
+              payments.prepend(target);
+
+              console.log("REORDERRRRRED")
+            }
+            console.log(elements.length)
           }, { once: true, maxAttempts: 60, interval: 300 });
+        }, { once: true, maxAttempts: 60, interval: 300 });
+      }, { once: true, maxAttempts: 60, interval: 300 });
     }, { once: true, maxAttempts: 60, interval: 300 });
   }
 
@@ -379,7 +404,7 @@ function startObserver() {
       titleEl.textContent = "🇬🇧 " + titleEl.textContent
     }
     if(text.toLowerCase().includes("bilingual") && settings.bilingual){
-      titleEl.textContent = "2️⃣🗣 " + titleEl.textContent
+      titleEl.textContent = "🅱️ " + titleEl.textContent
     }
 
     if(settings.balance){
