@@ -349,7 +349,7 @@ function startObserver() {
       titleEl.textContent = "🕐 " + titleEl.textContent
     }
 
-    if(text.toLowerCase().includes("✅ host insurance") || text.toLowerCase().includes("✅host insurance") && settings.alcohol){
+    if((text.toLowerCase().includes("✅ host insurance") || text.toLowerCase().includes("✅host insurance")) && settings.alcohol){
       titleEl.textContent = "🍾 " + titleEl.textContent
     }
 
