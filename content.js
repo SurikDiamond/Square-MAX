@@ -9,6 +9,7 @@ function runExtension() {
   injectStyles();
   reorderSections();
   resizeStuff();
+  showBalanceProperly();
   disablePrepay();
 }
 
@@ -135,14 +136,21 @@ function resizeStuff() {
     }, { once: false, maxAttempts: 60, interval: 300 });
   }
 
-  function showBookingInfo() {
-    waitForElement('ar-text-center', (el) => {
-      //console.log("textarea found:", el);
+  function showBalanceProperly() {
+    let remainingBalanceEl;
+    let totalBalanceEl;
 
-      const text = el?.getAttribute("value");
+    waitForElement('[aria-label="Remaining balance"]', (el) => {
+      remainingBalanceEl = el;
+      waitForElement('[aria-label="Total"]', (el2) => {
+            totalBalanceEl = el2;
 
-      //console.log("textarea resized");
-    }, { once: false, maxAttempts: 60, interval: 300 });
+            let remainingBalance = remainingBalanceEl.querySelector('[slot="side-label"]').textContent;
+            totalBalanceEl.querySelector('[slot="side-label"]').textContent = remainingBalance;
+
+            remainingBalanceEl.remove();
+          }, { once: true, maxAttempts: 60, interval: 300 });
+    }, { once: true, maxAttempts: 60, interval: 300 });
   }
 
   function applyTemplateToNotes(text) {
@@ -255,6 +263,7 @@ function startObserver() {
     const settings = await chrome.storage.sync.get({
       spanish: true,
       english: true,
+      bilingual: true,
       video: true,
       broadcast: true,
       photo: true,
@@ -286,12 +295,6 @@ function startObserver() {
 
     console.log(text);
 
-    if(text.toLowerCase().includes("spanish") && settings.spanish){
-      titleEl.textContent = "🇪🇸 " + titleEl.textContent
-    }
-    if(text.toLowerCase().includes("eng") && settings.english){
-      titleEl.textContent = "🇬🇧 " + titleEl.textContent
-    }
     if((text.toLowerCase().includes("video")) && settings.video){
       titleEl.textContent = "🎬 " + titleEl.textContent
     }
@@ -367,6 +370,16 @@ function startObserver() {
 
     if(text.toLowerCase().includes("tower") && settings.tower){
       titleEl.textContent = "🧀🍇🧁 " + titleEl.textContent
+    }
+
+    if(text.toLowerCase().includes("spanish") && settings.spanish){
+      titleEl.textContent = "🇪🇸 " + titleEl.textContent
+    }
+    if(text.toLowerCase().includes("eng") && settings.english){
+      titleEl.textContent = "🇬🇧 " + titleEl.textContent
+    }
+    if(text.toLowerCase().includes("bilingual") && settings.bilingual){
+      titleEl.textContent = "2️⃣🗣 " + titleEl.textContent
     }
 
     if(settings.balance){
