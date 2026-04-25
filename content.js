@@ -476,7 +476,7 @@ function startObserver() {
       }
     }
 
-    titleEl.innerHTML = `
+    if(emojis != "") titleEl.innerHTML = `
       <span class="my-emojis">${emojis}</span>
       <span class="my-title">${originalText}</span>
     `;
