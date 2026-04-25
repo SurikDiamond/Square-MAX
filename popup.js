@@ -20,6 +20,7 @@ const defaultSettings = {
   brunch: true,
   brisket: true,
   lovestation: true,
+  mendocino: true,
   tower: true,
   album: true,
   print: true
@@ -40,4 +41,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     });
   }
+});
+
+const slider = document.getElementById("emojiSize");
+const valueLabel = document.getElementById("emojiSizeValue");
+
+// Load saved value
+chrome.storage.sync.get(["emojiSize"], (result) => {
+  const size = result.emojiSize || 22;
+  slider.value = size;
+  valueLabel.textContent = size + "px";
+});
+
+// Update on change
+slider.addEventListener("input", () => {
+  const size = slider.value;
+  valueLabel.textContent = size + "px";
+
+  chrome.storage.sync.set({ emojiSize: size });
 });

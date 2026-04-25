@@ -7,7 +7,13 @@
 </head>
 <body>
   <div class="wrapper">
-    <h1>Square Tweaks</h1>
+    <h1>Square Emojis</h1>
+
+    <div class="setting">
+      <span class="left">Emoji Size</span>
+      <input type="range" id="emojiSize" min="10" max="25" value="13" />
+      <span id="emojiSizeValue">22px</span>
+    </div>
 
     <label class="setting">
       <span class="left">🇪🇸 Spanish</span>
@@ -110,13 +116,18 @@
     </label>
 
     <label class="setting">
-      <span class="left">🍳 Brunch</span>
+      <span class="left">☀️ Brunch</span>
       <input type="checkbox" id="brunch" />
     </label>
 
     <label class="setting">
       <span class="left">🥩 Brisket</span>
       <input type="checkbox" id="brisket" />
+    </label>
+
+    <label class="setting">
+      <span class="left">🍔 Mendocino (Sliders)</span>
+      <input type="checkbox" id="mendocino" />
     </label>
 
     <label class="setting">

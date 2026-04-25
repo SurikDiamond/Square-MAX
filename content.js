@@ -1,5 +1,51 @@
 console.log("extension injected");
 
+let emojiStyle = document.createElement("my-emoji-style");
+
+emojiStyle.textContent = `
+  .my-emojis {
+    font-size: 22px;
+    margin-right: 6px;
+  }
+`;
+
+document.head.appendChild(emojiStyle);
+
+chrome.storage.sync.get(["emojiSize"], (result) => {
+  const size = result.emojiSize || 22;
+
+  let style = document.getElementById("my-emoji-style");
+
+  if (!style) {
+    style = document.createElement("style");
+    style.id = "my-emoji-style";
+    document.head.appendChild(style);
+  }
+
+  style.textContent = `
+    .my-emojis {
+      font-size: ${size}px;
+      margin-right: 6px;
+    }
+  `;
+});
+
+chrome.storage.onChanged.addListener((changes) => {
+  if (changes.emojiSize) {
+    const size = changes.emojiSize.newValue;
+
+    const style = document.getElementById("my-emoji-style");
+    if (style) {
+      style.textContent = `
+        .my-emojis {
+          font-size: ${size}px;
+          margin-right: 6px;
+        }
+      `;
+    }
+  }
+});
+
 let lastUrl = location.href;
 (() => {
 function runExtension() {
@@ -9,7 +55,7 @@ function runExtension() {
   injectStyles();
   reorderSections();
   resizeStuff();
-  showBalanceProperly();
+  //showBalanceProperly();
   disablePrepay();
 }
 
@@ -136,7 +182,7 @@ function resizeStuff() {
     }, { once: false, maxAttempts: 60, interval: 300 });
   }
 
-  async function showBalanceProperly() {
+  /*async function showBalanceProperly() {
     let remainingBalanceEl;
     let totalBalanceEl;
 
@@ -176,7 +222,7 @@ function resizeStuff() {
         }, { once: true, maxAttempts: 60, interval: 300 });
       }, { once: true, maxAttempts: 60, interval: 300 });
     }, { once: true, maxAttempts: 60, interval: 300 });
-  }
+  }*/
 
   function applyTemplateToNotes(text) {
     waitForElement('market-textarea', (el) => {
@@ -285,6 +331,9 @@ function startObserver() {
   }
 
   async function addEmojis(id, titleEl) {
+    const originalText = titleEl.textContent;
+    let emojis = "";
+
     const settings = await chrome.storage.sync.get({
       spanish: true,
       english: true,
@@ -306,6 +355,7 @@ function startObserver() {
       alcohol: true,
       brunch: true,
       brisket: true,
+      mendocino: true,
       lovestation: true,
       tower: true,
       album: true,
@@ -321,28 +371,28 @@ function startObserver() {
     console.log(text);
 
     if((text.toLowerCase().includes("video")) && settings.video){
-      titleEl.textContent = "🎬 " + titleEl.textContent
+      emojis += "🎬 ";
     }
     if((text.toLowerCase().includes("broadcast")) && settings.broadcast){
-      titleEl.textContent = "🔴 " + titleEl.textContent
+      emojis += "🔴 ";
     }
     if(text.toLowerCase().includes("photo") && !text.toLowerCase().includes("own photo")  && !text.toLowerCase().includes("photo pass") && !text.toLowerCase().includes("photo pass") && settings.photo){
-      titleEl.textContent = "📸 " + titleEl.textContent
+      emojis += "📸 ";
     }
     if(text.toLowerCase().includes("album") && !text.toLowerCase().includes("no album") && settings.album){
-      titleEl.textContent = "📕 " + titleEl.textContent
+      emojis += "📕 ";
     }
     if(text.toLowerCase().includes("print") && !text.toLowerCase().includes("no print") && settings.print){
-      titleEl.textContent = "🖼 " + titleEl.textContent
+      emojis += "🖼 ";
     }
     if(text.toLowerCase().includes("lnc") && !text.toLowerCase().includes("own lnc") && settings.license){
-      titleEl.textContent = "✍️ " + titleEl.textContent
+      emojis += "✍️ ";
     }
     if(text.toLowerCase().includes("own officiant") && settings.own_officiant){
-      titleEl.textContent = "⛪️ " + titleEl.textContent
+      emojis += "⛪️ ";
     }
     if(text.toLowerCase().includes("chrome runner") && settings.chrome){
-      titleEl.textContent = "💿 " + titleEl.textContent
+      emojis += "💿 ";
     }
 
     const bouquets = ["vogue", "brenda", "santa maria", "isabella", "gigi", "sicily", "valentina", "cloe", "alexandra", "gentlemen", "gentleman", "erica", "victoria"]
@@ -350,61 +400,65 @@ function startObserver() {
       text.toLowerCase().includes(word.toLowerCase())
     );
     if(found && !text.toLowerCase().includes("own bouquet") && !text.toLowerCase().includes("no bouquet") && settings.bouquet){
-      titleEl.textContent = "💐 " + titleEl.textContent
+      emojis += "💐 ";
     }
 
-    if(text.toLowerCase().includes("cake") && settings.cake){
-      titleEl.textContent = "🎂 " + titleEl.textContent
+    if(text.toLowerCase().includes("cake") && !text.toLowerCase().includes("no cake") && !text.toLowerCase().includes("own cake") && settings.cake){
+      emojis += "🎂 ";
     }
 
     if(text.toLowerCase().includes("donut") && !text.toLowerCase().includes("no donut") && settings.donut){
-      titleEl.textContent = "🍩 " + titleEl.textContent
+      emojis += "🍩 " + titleEl.textContent
     }
 
     if(text.toLowerCase().includes("carousel") && settings.carousel){
-      titleEl.textContent = "🎠 " + titleEl.textContent
+      emojis += "🎠 ";
     }
 
     if(text.toLowerCase().includes("pasta") && settings.pasta){
-      titleEl.textContent = "🍝 " + titleEl.textContent
+      emojis += "🍝 ";
     }
 
-    if(text.toLowerCase().includes("seating chart") && !text.toLowerCase().includes("seating chart - no") && settings.seating_chart){
-      titleEl.textContent = "🪑 " + titleEl.textContent
+    if(text.toLowerCase().includes("seating chart") && !text.toLowerCase().includes("seating chart - no") && !text.toLowerCase().includes("no seating chart") && settings.seating_chart){
+      emojis += "🪑 ";
     }
 
     if(text.toLowerCase().includes("extra hour") && settings.extra_hour){
-      titleEl.textContent = "🕐 " + titleEl.textContent
+      emojis += "🕐 ";
     }
 
     if((text.toLowerCase().includes("✅ host insurance") || text.toLowerCase().includes("✅host insurance")) && settings.alcohol){
-      titleEl.textContent = "🍾 " + titleEl.textContent
+      emojis += "🍾 ";
     }
 
     if(text.toLowerCase().includes("brunch") && settings.brunch){
-      titleEl.textContent = "🍳 " + titleEl.textContent
+      emojis += "☀️ ";
     }
 
     if(text.toLowerCase().includes("brisket") && settings.brisket){
-      titleEl.textContent = "🥩 " + titleEl.textContent
+      emojis += "🥩 ";
+    }
+
+    if((text.toLowerCase().includes("mendocino") || text.toLowerCase().includes("sliders")) && settings.mendocino){
+      emojis += "🍔 ";
     }
 
     if(text.toLowerCase().includes("love station") && settings.lovestation){
-      titleEl.textContent = "🍔🍹🧁🧀 " + titleEl.textContent
+      emojis += "🍔🍹🧁🧀 ";
     }
 
     if(text.toLowerCase().includes("tower") && settings.tower){
-      titleEl.textContent = "🧀🍇🧁 " + titleEl.textContent
+      emojis += "🧀🍇🧁 ";
     }
 
     if(text.toLowerCase().includes("spanish") && settings.spanish){
-      titleEl.textContent = "🇪🇸 " + titleEl.textContent
+      emojis += "🇪🇸 ";
     }
     if(text.toLowerCase().includes("eng") && settings.english){
-      titleEl.textContent = "🇬🇧 " + titleEl.textContent
+      emojis += "🇬🇧 ";
     }
     if(text.toLowerCase().includes("bilingual") && settings.bilingual){
-      titleEl.textContent = "🅱️ " + titleEl.textContent
+      emojis += "🅱️ ";
     }
 
     if(settings.balance){
@@ -418,9 +472,14 @@ function startObserver() {
         console.log(balances);
         console.log(lastBalance);
 
-        if(lastBalance > 0) titleEl.textContent = "💰 " + titleEl.textContent;
+        if(lastBalance > 0) emojis += "💰 ";
       }
     }
+
+    titleEl.innerHTML = `
+      <span class="my-emojis">${emojis}</span>
+      <span class="my-title">${originalText}</span>
+    `;
   }
 
   watchCalendarEvents();
