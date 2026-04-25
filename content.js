@@ -5,7 +5,7 @@ let emojiStyle = document.createElement("my-emoji-style");
 emojiStyle.textContent = `
   .my-emojis {
     font-size: 22px;
-    margin-right: 6px;
+    margin-right: 0px;
   }
 `;
 
@@ -25,7 +25,7 @@ chrome.storage.sync.get(["emojiSize"], (result) => {
   style.textContent = `
     .my-emojis {
       font-size: ${size}px;
-      margin-right: 6px;
+      margin-right: 0px;
     }
   `;
 });
