@@ -408,7 +408,7 @@ function startObserver() {
     }
 
     if(text.toLowerCase().includes("donut") && !text.toLowerCase().includes("no donut") && settings.donut){
-      emojis += "🍩 " + titleEl.textContent
+      emojis += "🍩 ";
     }
 
     if(text.toLowerCase().includes("carousel") && settings.carousel){
