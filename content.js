@@ -370,6 +370,32 @@ function startObserver() {
 
     console.log(text);
 
+    if(settings.balance){
+      const matches = [...text.matchAll(/balance\s*[:=]?\s*\$?([\d,]+(?:\.\d{2})?)/gi)];
+
+      const balances = matches.map(m => m[1]);
+
+      if(balances.length > 0){
+        const lastBalance = balances.at(-1);
+
+        console.log(balances);
+        console.log(lastBalance);
+
+        if(lastBalance > 0) emojis += "💰 ";
+      }
+    }
+
+    if(text.toLowerCase().includes("bilingual") && settings.bilingual){
+      emojis += "🅱️ ";
+    }
+    if(text.toLowerCase().includes("eng") && settings.english){
+      emojis += "🇬🇧 ";
+    }
+    if(text.toLowerCase().includes("spanish") && settings.spanish){
+      emojis += "🇪🇸 ";
+    }
+    
+
     if((text.toLowerCase().includes("video")) && settings.video){
       emojis += "🎬 ";
     }
@@ -449,31 +475,6 @@ function startObserver() {
 
     if(text.toLowerCase().includes("tower") && settings.tower){
       emojis += "🧀🍇🧁 ";
-    }
-
-    if(text.toLowerCase().includes("spanish") && settings.spanish){
-      emojis += "🇪🇸 ";
-    }
-    if(text.toLowerCase().includes("eng") && settings.english){
-      emojis += "🇬🇧 ";
-    }
-    if(text.toLowerCase().includes("bilingual") && settings.bilingual){
-      emojis += "🅱️ ";
-    }
-
-    if(settings.balance){
-      const matches = [...text.matchAll(/balance\s*[:=]?\s*\$?([\d,]+(?:\.\d{2})?)/gi)];
-
-      const balances = matches.map(m => m[1]);
-
-      if(balances.length > 0){
-        const lastBalance = balances.at(-1);
-
-        console.log(balances);
-        console.log(lastBalance);
-
-        if(lastBalance > 0) emojis += "💰 ";
-      }
     }
 
     if(emojis != "") titleEl.innerHTML = `
