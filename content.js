@@ -432,7 +432,7 @@ function startObserver() {
       emojis += "💐 ";
     }
 
-    if(text.toLowerCase().includes("cake") && !text.toLowerCase().includes("no cake") && !text.toLowerCase().includes("own cake - yes") && settings.cake){
+    if(text.toLowerCase().includes("cake") && !text.toLowerCase().includes("no cake") && !text.toLowerCase().includes("own cake - yes") && !text.toLowerCase().includes("own cake - ?") && settings.cake){
       emojis += "🎂 ";
     }
 
