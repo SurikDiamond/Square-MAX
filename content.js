@@ -444,7 +444,7 @@ function startObserver() {
     }
 
     if(text.toLowerCase().includes("love station") && settings.lovestation){
-      emojis += "🍔🍹🧁🧀 ";
+      emojis += "🍔🍹🧁🎂🧀 ";
     }
 
     if(text.toLowerCase().includes("tower") && settings.tower){
