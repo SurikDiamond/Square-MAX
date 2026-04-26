@@ -420,6 +420,9 @@ function startObserver() {
     if(text.toLowerCase().includes("chrome runner") && settings.chrome){
       emojis += "💿 ";
     }
+    if(text.toLowerCase().includes("table runner") && settings.table_runner){
+      emojis += "🧣 ";
+    }
 
     const bouquets = ["vogue", "brenda", "santa maria", "isabella", "gigi", "sicily", "valentina", "cloe", "alexandra", "gentlemen", "gentleman", "erica", "victoria"]
     const found = bouquets.some(word =>
@@ -437,11 +440,15 @@ function startObserver() {
       emojis += "🍩 ";
     }
 
-    if(text.toLowerCase().includes("carousel") && settings.carousel){
+    if(!text.toLowerCase().includes("carousel ?") && text.toLowerCase().includes("carousel") && !text.toLowerCase().includes("no donut") && settings.carousel){
       emojis += "🎠 ";
     }
 
-    if(text.toLowerCase().includes("pasta") && settings.pasta){
+    if(!text.toLowerCase().includes("brisket ?") && text.toLowerCase().includes("brisket") && settings.brisket){
+      emojis += "🥩 ";
+    }
+
+    if(!text.toLowerCase().includes("osteria la buca ?") && (text.toLowerCase().includes("osteria la buca") || text.toLowerCase().includes("pasta")) && settings.pasta){
       emojis += "🍝 ";
     }
 
@@ -459,10 +466,6 @@ function startObserver() {
 
     if(text.toLowerCase().includes("brunch") && settings.brunch){
       emojis += "☀️ ";
-    }
-
-    if(text.toLowerCase().includes("brisket") && settings.brisket){
-      emojis += "🥩 ";
     }
 
     if((text.toLowerCase().includes("mendocino") || text.toLowerCase().includes("sliders")) && settings.mendocino){

@@ -9,6 +9,7 @@ const defaultSettings = {
   own_officiant: true,
   balance: true,
   chrome: true,
+  table_runner: true,
   bouquet: true,
   cake: true,
   donut: true,
