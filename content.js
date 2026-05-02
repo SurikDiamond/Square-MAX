@@ -330,6 +330,10 @@ function startObserver() {
   });
   }
 
+  function ignoreWord(text, word) {
+    return text.replaceAll(word, "");
+  }
+
   async function addEmojis(id, titleEl) {
     const originalText = titleEl.textContent;
     let emojis = "";
@@ -366,7 +370,7 @@ function startObserver() {
       credentials: "include"
     }).then(r => r.json());
 
-    const text = String(data?.seller_note || "").split("===")[0];
+    let text = String(data?.seller_note || "").split("===")[0];
 
     console.log(text);
 
@@ -389,22 +393,27 @@ function startObserver() {
       emojis += "🅱️ ";
     }
     if(text.toLowerCase().includes("eng") && settings.english){
-      emojis += "🇬🇧 ";
+      emojis += "🇺🇸 ";
     }
     if(text.toLowerCase().includes("spanish") && settings.spanish){
       emojis += "🇪🇸 ";
     }
     
-
+    text = ignoreWord(text, "videogames");
+    text = ignoreWord(text, "video games");
+    text = ignoreWord(text, "own video");
     if((text.toLowerCase().includes("video")) && settings.video){
       emojis += "🎬 ";
     }
     if((text.toLowerCase().includes("broadcast")) && settings.broadcast){
       emojis += "🔴 ";
     }
-    if(text.toLowerCase().includes("photo") && !text.toLowerCase().includes("own photo")  && !text.toLowerCase().includes("photo pass") && !text.toLowerCase().includes("photo pass") && settings.photo){
+    text = ignoreWord(text, "own photo");
+    if(text.toLowerCase().includes("photo")  && !text.toLowerCase().includes("photo pass") && !text.toLowerCase().includes("photopass") && settings.photo){
       emojis += "📸 ";
     }
+
+    text = ignoreWord(text, "/album/");
     if(text.toLowerCase().includes("album") && !text.toLowerCase().includes("no album") && settings.album){
       emojis += "📕 ";
     }

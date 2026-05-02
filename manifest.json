@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Square MAX",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Pushing Square to the limits",
   "permissions": ["storage"],
   "host_permissions": [
