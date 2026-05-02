@@ -372,8 +372,6 @@ function startObserver() {
 
     let text = String(data?.seller_note || "").split("===")[0];
 
-    console.log(text);
-
     if(settings.balance){
       const matches = [...text.matchAll(/balance\s*[:=]?\s*\$?([\d,]+(?:\.\d{2})?)/gi)];
 
@@ -414,6 +412,7 @@ function startObserver() {
     }
 
     text = ignoreWord(text, "/album/");
+    //console.log(text);
     if(text.toLowerCase().includes("album") && !text.toLowerCase().includes("no album") && settings.album){
       emojis += "📕 ";
     }
