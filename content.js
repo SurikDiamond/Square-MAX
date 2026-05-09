@@ -372,6 +372,8 @@ function startObserver() {
 
     let text = String(data?.seller_note || "").split("===")[0];
 
+    text = text.toLowerCase();
+
     if(settings.balance){
       const matches = [...text.matchAll(/balance\s*[:=]?\s*\$?([\d,]+(?:\.\d{2})?)/gi)];
 
@@ -387,104 +389,104 @@ function startObserver() {
       }
     }
 
-    if(text.toLowerCase().includes("bilingual") && settings.bilingual){
+    if(text.includes("bilingual") && settings.bilingual){
       emojis += "🅱️ ";
     }
-    if(text.toLowerCase().includes("eng") && settings.english){
+    if(text.includes("eng") && settings.english){
       emojis += "🇺🇸 ";
     }
-    if(text.toLowerCase().includes("spanish") && settings.spanish){
+    if(text.includes("spanish") && settings.spanish){
       emojis += "🇪🇸 ";
     }
     
     text = ignoreWord(text, "videogames");
     text = ignoreWord(text, "video games");
     text = ignoreWord(text, "own video");
-    if((text.toLowerCase().includes("video")) && settings.video){
+    if((text.includes("video")) && settings.video){
       emojis += "🎬 ";
     }
-    if((text.toLowerCase().includes("broadcast")) && settings.broadcast){
+    if((text.includes("broadcast")) && settings.broadcast){
       emojis += "🔴 ";
     }
     text = ignoreWord(text, "own photo");
-    if(text.toLowerCase().includes("photo")  && !text.toLowerCase().includes("photo pass") && !text.toLowerCase().includes("photopass") && settings.photo){
+    if(text.includes("photo") && !text.includes("photo pass") && !text.includes("photopass") && settings.photo){
       emojis += "📸 ";
     }
 
     text = ignoreWord(text, "/album/");
     //console.log(text);
-    if(text.toLowerCase().includes("album") && !text.toLowerCase().includes("no album") && settings.album){
+    if(text.includes("album") && !text.includes("no album") && settings.album){
       emojis += "📕 ";
     }
-    if(text.toLowerCase().includes("print") && !text.toLowerCase().includes("no print") && settings.print){
+    if(text.includes("print") && !text.includes("no print") && settings.print){
       emojis += "🖼 ";
     }
-    if(text.toLowerCase().includes("lnc") && !text.toLowerCase().includes("own lnc") && settings.license){
+    if(text.includes("lnc") && !text.includes("own lnc") && settings.license){
       emojis += "✍️ ";
     }
-    if(text.toLowerCase().includes("own officiant") && settings.own_officiant){
+    if(text.includes("own officiant") && settings.own_officiant){
       emojis += "⛪️ ";
     }
-    if(text.toLowerCase().includes("chrome runner") && settings.chrome){
+    if(text.includes("chrome runner") && settings.chrome){
       emojis += "💿 ";
     }
-    if(text.toLowerCase().includes("table runner") && settings.table_runner){
+    if(text.includes("table runner") && settings.table_runner){
       emojis += "🧣 ";
     }
 
     const bouquets = ["vogue", "brenda", "santa maria", "isabella", "gigi", "sicily", "valentina", "cloe", "alexandra", "gentlemen", "gentleman", "erica", "victoria"]
     const found = bouquets.some(word =>
-      text.toLowerCase().includes(word.toLowerCase())
+      text.includes(word)
     );
-    if(found && !text.toLowerCase().includes("own bouquet") && !text.toLowerCase().includes("no bouquet") && settings.bouquet){
+    if(found && !text.includes("own bouquet") && !text.includes("no bouquet") && settings.bouquet){
       emojis += "💐 ";
     }
 
-    if(text.toLowerCase().includes("cake") && !text.toLowerCase().includes("no cake") && !text.toLowerCase().includes("own cake - yes") && !text.toLowerCase().includes("own cake - ?") && settings.cake){
+    if(text.includes("cake") && !text.includes("no cake") && !text.includes("own cake - yes") && !text.includes("own cake - ?") && settings.cake){
       emojis += "🎂 ";
     }
 
-    if(text.toLowerCase().includes("donut") && !text.toLowerCase().includes("no donut") && settings.donut){
+    if(text.includes("donut") && !text.includes("no donut") && settings.donut){
       emojis += "🍩 ";
     }
 
-    if(!text.toLowerCase().includes("carousel ?") && text.toLowerCase().includes("carousel") && !text.toLowerCase().includes("no donut") && settings.carousel){
+    if(!text.includes("carousel ?") && text.includes("carousel") && !text.includes("no donut") && settings.carousel){
       emojis += "🎠 ";
     }
 
-    if(!text.toLowerCase().includes("brisket ?") && text.toLowerCase().includes("brisket") && settings.brisket){
+    if(!text.includes("brisket ?") && text.includes("brisket") && settings.brisket){
       emojis += "🥩 ";
     }
 
-    if(!text.toLowerCase().includes("osteria la buca ?") && (text.toLowerCase().includes("osteria la buca") || text.toLowerCase().includes("pasta")) && settings.pasta){
+    if(!text.includes("osteria la buca ?") && (text.includes("osteria la buca") || text.includes("pasta")) && settings.pasta){
       emojis += "🍝 ";
     }
 
-    if(text.toLowerCase().includes("seating chart") && !text.toLowerCase().includes("seating chart - no") && !text.toLowerCase().includes("no seating chart") && settings.seating_chart){
+    if(text.includes("seating chart") && !text.includes("seating chart - no") && !text.includes("no seating chart") && settings.seating_chart){
       emojis += "🪑 ";
     }
 
-    if(text.toLowerCase().includes("extra hour") && settings.extra_hour){
+    if(text.includes("extra hour") && settings.extra_hour){
       emojis += "🕐 ";
     }
 
-    if((text.toLowerCase().includes("✅ host insurance") || text.toLowerCase().includes("✅host insurance")) && settings.alcohol){
+    if((text.includes("✅ host insurance") || text.includes("✅host insurance")) && settings.alcohol){
       emojis += "🍾 ";
     }
 
-    if(text.toLowerCase().includes("brunch") && settings.brunch){
+    if(text.includes("brunch") && settings.brunch){
       emojis += "☀️ ";
     }
 
-    if((text.toLowerCase().includes("mendocino") || text.toLowerCase().includes("sliders")) && settings.mendocino){
+    if((text.includes("mendocino") || text.includes("sliders")) && settings.mendocino){
       emojis += "🍔 ";
     }
 
-    if(text.toLowerCase().includes("love station") && settings.lovestation){
+    if(text.includes("love station") && settings.lovestation){
       emojis += "🍔🍹🧁🎂🧀 ";
     }
 
-    if(text.toLowerCase().includes("tower") && settings.tower){
+    if(text.includes("tower") && settings.tower){
       emojis += "🧀🍇🧁 ";
     }
 
@@ -492,6 +494,8 @@ function startObserver() {
       <span class="my-emojis">${emojis}</span>
       <span class="my-title">${originalText}</span>
     `;
+
+    console.log(text);
   }
 
   watchCalendarEvents();
