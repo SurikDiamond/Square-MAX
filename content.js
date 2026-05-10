@@ -401,7 +401,7 @@ function startObserver() {
     }
     
     if(text.includes("same sex") && settings.samesex){
-      emojis += "🏳️‍🌈 ";
+      emojis += "🌈 ";
     }
 
     text = ignoreWord(text, "videogames");
