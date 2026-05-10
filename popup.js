@@ -2,6 +2,7 @@ const defaultSettings = {
   spanish: true,
   english: true,
   bilingual: true,
+  samesex: true,
   video: true,
   broadcast: true,
   photo: true,

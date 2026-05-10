@@ -342,6 +342,7 @@ function startObserver() {
       spanish: true,
       english: true,
       bilingual: true,
+      samesex: true,
       video: true,
       broadcast: true,
       photo: true,
@@ -399,6 +400,10 @@ function startObserver() {
       emojis += "🇪🇸 ";
     }
     
+    if(text.includes("same sex") && settings.samesex){
+      emojis += "🏳️‍🌈 ";
+    }
+
     text = ignoreWord(text, "videogames");
     text = ignoreWord(text, "video games");
     text = ignoreWord(text, "own video");
